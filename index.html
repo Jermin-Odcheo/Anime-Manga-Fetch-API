@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Archives - Anime & Manga</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">
+                <span class="highlight">Media</span>Archives
+            </h1>
+            <p class="subtitle">Top 10 Anime & Manga | Weekly Trending | Powered by Jikan API</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Search & Filter Section -->
+        <div class="search-filter-container">
+            <div class="search-bar-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search anime or manga...">
+                <button id="filterToggleBtn" class="filter-toggle-btn">Filters</button>
+            </div>
+
+            <div id="filtersSection" style="display: none;">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="typeFilter">Type:</label>
+                        <select id="typeFilter" class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="anime">Anime Only</option>
+                            <option value="manga">Manga Only</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="statusFilter">Status:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="ongoing">Currently Airing/Publishing</option>
+                            <option value="completed">Completed</option>
+                            <option value="upcoming">Upcoming</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="genreFilter">Genre:</label>
+                        <select id="genreFilter" class="filter-select">
+                            <option value="all">All Genres</option>
+                            <option value="Action">Action</option>
+                            <option value="Adventure">Adventure</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Mystery">Mystery</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Sci-Fi">Sci-Fi</option>
+                            <option value="Slice of Life">Slice of Life</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Supernatural">Supernatural</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Psychological">Psychological</option>
+                            <option value="Mecha">Mecha</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="yearMinFilter">Year From:</label>
+                        <input type="number" id="yearMinFilter" class="filter-select" placeholder="e.g. 2000" min="1960" max="2026">
+                    </div>
+                    <div class="filter-group">
+                        <label for="yearMaxFilter">Year To:</label>
+                        <input type="number" id="yearMaxFilter" class="filter-select" placeholder="e.g. 2024" min="1960" max="2026">
+                    </div>
+                    <div class="filter-group">
+                        <label for="ratingMinFilter">Min Rating:</label>
+                        <select id="ratingMinFilter" class="filter-select">
+                            <option value="0">Any Rating</option>
+                            <option value="5">5.0+</option>
+                            <option value="6">6.0+</option>
+                            <option value="7">7.0+ (Good)</option>
+                            <option value="8">8.0+ (Great)</option>
+                            <option value="9">9.0+ (Masterpiece)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortFilter">Sort By:</label>
+                        <select id="sortFilter" class="filter-select">
+                            <option value="rating-desc">Rating (Highest First)</option>
+                            <option value="rating-asc">Rating (Lowest First)</option>
+                            <option value="title-asc">Title (A → Z)</option>
+                            <option value="title-desc">Title (Z → A)</option>
+                            <option value="year-desc">Year (Newest First)</option>
+                            <option value="year-asc">Year (Oldest First)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions" style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                    <button id="applyFiltersBtn" class="btn btn-primary" style="padding: 0.75rem 2rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
+                        Apply Filters
+                    </button>
+                    <button id="clearFiltersBtn" class="btn btn-secondary" style="padding: 0.75rem 2rem; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;">
+                        Clear All
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3 id="totalItems">-</h3>
+                <p>Total Items Loaded</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="animeCount">-</h3>
+                <p>Anime Titles</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="mangaCount">-</h3>
+                <p>Manga Titles</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="avgRating">-</h3>
+                <p>Average Rating</p>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-indicator" style="display: block;">
+            <div class="spinner"></div>
+            <p>Fetching data from Jikan API...</p>
+        </div>
+
+        <!-- Top 10 Anime Section -->
+        <section id="topAnimeSection" style="display: none;">
+            <div class="section-header">
+                <h2>Top 10 Anime</h2>
+                <p class="section-description">The highest-rated anime according to MyAnimeList users</p>
+            </div>
+            <div id="topAnimeGrid" class="results-grid"></div>
+        </section>
+
+        <!-- Top Weekly/Trending Section -->
+        <section id="trendingSection" style="display: none;">
+            <div class="section-header">
+                <h2>Top Weekly/Trending Anime</h2>
+                <p class="section-description">Currently airing anime that are trending this week</p>
+            </div>
+            <div id="trendingGrid" class="results-grid"></div>
+        </section>
+
+        <!-- Seasonal Anime Section -->
+        <section id="seasonalSection" style="display: none;">
+            <div class="section-header">
+                <h2><span id="seasonTitle">This Season's Anime</span></h2>
+                <p class="section-description">Latest anime releases for the current season</p>
+            </div>
+            <div id="seasonalGrid" class="results-grid"></div>
+        </section>
+
+        <!-- Top 10 Manga Section -->
+        <section id="topMangaSection" style="display: none;">
+            <div class="section-header">
+                <h2>Top 10 Manga</h2>
+                <p class="section-description">The highest-rated manga according to MyAnimeList users</p>
+            </div>
+            <div id="topMangaGrid" class="results-grid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><span class="highlight">Media</span>Archives</h3>
+                </div>
+                <div class="footer-disclaimer">
+                    <p>Data fetched in real-time from Jikan API v4 (Unofficial MyAnimeList API)</p>
+                    <p>This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2026 Media Archives. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Item Detail Modal -->
+    <div id="itemModal" class="modal" style="display: none;">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="" class="modal-image" />
+                <div class="modal-details">
+                    <span id="modalTypeBadge" class="type-badge"></span>
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-meta">
+                        <span id="modalYear"></span>
+                        <span id="modalStatus"></span>
+                        <span id="modalRating"></span>
+                    </div>
+                    <div id="modalGenres" class="modal-genres"></div>
+                    <p id="modalDescription" class="modal-description"></p>
+                    <a id="modalLink" href="#" target="_blank" class="btn btn-primary">
+                        View on MyAnimeList
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts: Only 3 JavaScript files -->
+    <script src="js/anime-api.js"></script>
+    <script src="js/manga-api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
