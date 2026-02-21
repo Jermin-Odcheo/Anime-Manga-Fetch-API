@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Archives - Anime & Manga</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pagination.css">
 </head>
 <body>
     <!-- Header -->
@@ -111,32 +112,32 @@
 
         <!-- Stats -->
         <div class="stats-container">
-            <div class="stat-card">
-                <h3 id="totalItems">-</h3>
+            <div class="stat-card skeleton-card">
+                <h3 id="totalItems">000</h3>
                 <p>Total Items Loaded</p>
             </div>
-            <div class="stat-card">
-                <h3 id="animeCount">-</h3>
+            <div class="stat-card skeleton-card">
+                <h3 id="animeCount">000</h3>
                 <p>Anime Titles</p>
             </div>
-            <div class="stat-card">
-                <h3 id="mangaCount">-</h3>
+            <div class="stat-card skeleton-card">
+                <h3 id="mangaCount">000</h3>
                 <p>Manga Titles</p>
             </div>
-            <div class="stat-card">
-                <h3 id="avgRating">-</h3>
+            <div class="stat-card skeleton-card">
+                <h3 id="avgRating">0.0</h3>
                 <p>Average Rating</p>
             </div>
         </div>
 
         <!-- Loading Indicator -->
-        <div id="loadingIndicator" class="loading-indicator" style="display: block;">
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
             <div class="spinner"></div>
             <p>Fetching data from Jikan API...</p>
         </div>
 
         <!-- Top 10 Anime Section -->
-        <section id="topAnimeSection" style="display: none;">
+        <section id="topAnimeSection">
             <div class="section-header">
                 <h2>Top 10 Anime</h2>
                 <p class="section-description">The highest-rated anime according to MyAnimeList users</p>
@@ -145,16 +146,16 @@
         </section>
 
         <!-- Top Weekly/Trending Section -->
-        <section id="trendingSection" style="display: none;">
+        <section id="trendingSection">
             <div class="section-header">
                 <h2>Top Weekly/Trending Anime</h2>
-                <p class="section-description">Currently airing anime that are trending this week</p>
+                <p class="section-description">Currently, airing anime that are trending this week</p>
             </div>
             <div id="trendingGrid" class="results-grid"></div>
         </section>
 
         <!-- Seasonal Anime Section -->
-        <section id="seasonalSection" style="display: none;">
+        <section id="seasonalSection">
             <div class="section-header">
                 <h2><span id="seasonTitle">This Season's Anime</span></h2>
                 <p class="section-description">Latest anime releases for the current season</p>
@@ -163,7 +164,7 @@
         </section>
 
         <!-- Top 10 Manga Section -->
-        <section id="topMangaSection" style="display: none;">
+        <section id="topMangaSection">
             <div class="section-header">
                 <h2>Top 10 Manga</h2>
                 <p class="section-description">The highest-rated manga according to MyAnimeList users</p>
@@ -218,6 +219,7 @@
     <!-- Scripts: Only 3 JavaScript files -->
     <script src="js/anime-api.js"></script>
     <script src="js/manga-api.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

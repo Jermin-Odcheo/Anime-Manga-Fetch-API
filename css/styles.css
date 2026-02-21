@@ -36,8 +36,9 @@ body {
 
 .container {
     max-width: 1400px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 20px;
 }
 
 /* ===========================
@@ -233,18 +234,15 @@ main {
 
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
     animation: fadeIn 0.5s ease;
+    min-height: 200px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* Prevent the page from looking “slim” when grids are temporarily empty */
+.results-grid:empty {
+    min-height: 200px;
 }
 
 /* ===========================
@@ -602,6 +600,10 @@ main {
    RESPONSIVE DESIGN
    =========================== */
 @media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
     .logo {
         font-size: 2rem;
     }
@@ -625,8 +627,12 @@ main {
 
     .results-grid,
     .search-results-section .results-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .search-results-section .section-header {
+        margin: 1.5rem 0 1rem;
     }
 
     .modal-body {
@@ -765,6 +771,7 @@ main {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 .search-filter-container .search-input {
@@ -821,8 +828,62 @@ main {
 
 .search-results-section .results-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
     animation: fadeIn 0.5s ease;
 }
 
+/* ===========================
+   SKELETON LOADING CARDS
+   =========================== */
+@keyframes shimmer {
+    0%   { background-position: -800px 0; }
+    100% { background-position:  800px 0; }
+}
+
+.skeleton-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+}
+
+.skeleton-card .skeleton-img {
+    width: 100%;
+    padding-top: 140%;
+    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-card .skeleton-content {
+    padding: 1rem;
+}
+
+.skeleton-line {
+    height: 0.85rem;
+    border-radius: 4px;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-line.short  { width: 55%; }
+.skeleton-line.medium { width: 75%; }
+.skeleton-line.full   { width: 100%; }
+
+/* stat cards shimmer */
+.stat-card.skeleton-card {
+    pointer-events: none;
+}
+.stat-card.skeleton-card h3,
+.stat-card.skeleton-card p {
+    border-radius: 4px;
+    color: transparent;
+    background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s infinite linear;
+    user-select: none;
+}

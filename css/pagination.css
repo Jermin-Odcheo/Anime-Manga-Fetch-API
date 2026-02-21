@@ -1,0 +1,90 @@
+/* ===========================
+   PAGINATION (Search Results)
+   =========================== */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-btn {
+    background: white;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    min-width: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-btn--active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.page-btn--nav {
+    min-width: 84px;
+}
+
+.page-ellipsis {
+    padding: 0.5rem 0.35rem;
+    color: var(--text-light);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pagination-info {
+    text-align: center;
+    margin-top: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .page-btn--nav span,
+    .page-btn--nav {
+        padding: 0 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .pagination-pages .page-btn:not(.page-btn--active) {
+        display: none;
+    }
+
+    .pagination-pages .page-btn--active,
+    .pagination-pages .page-ellipsis {
+        display: inline-flex;
+    }
+}
+
